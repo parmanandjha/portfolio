@@ -9,23 +9,7 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  // ---------- 1. Dynamic "Day X" counter ----------
-  // Day 1 = May 4, 2026 (start of Class 12 & Green Flag Club build streak)
-  const DAY_ONE = new Date(2026, 4, 4);
-  const computeDay = () => {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const diff = Math.floor((today - DAY_ONE) / 86400000) + 1;
-    return Math.max(1, diff);
-  };
-  const currentDay = computeDay();
-  const dayStatEl = document.getElementById('dayStat');
-  if (dayStatEl) dayStatEl.textContent = String(currentDay);
-  document.querySelectorAll('.day-inline').forEach((el) => {
-    el.textContent = String(currentDay);
-  });
-
-  // ---------- 2. Live Biratnagar / Nepal clock ----------
+  // ---------- 1. Live Biratnagar / Nepal clock ----------
   const ktmEl = document.getElementById('ktmTime');
   const updateClock = () => {
     if (!ktmEl) return;
@@ -422,26 +406,7 @@
     });
   });
 
-  if (dayStatEl) {
-    const obj = { val: 0 };
-    ScrollTrigger.create({
-      trigger: dayStatEl,
-      start: 'top 88%',
-      once: true,
-      onEnter: () => {
-        gsap.to(obj, {
-          val: currentDay,
-          duration: 1.4,
-          ease: 'power3.out',
-          onUpdate: () => {
-            dayStatEl.textContent = String(Math.max(1, Math.round(obj.val)));
-          },
-        });
-      },
-    });
-  }
-
-  // ---------- 13. Section Headings Split-Char Reveal ----------
+  // ---------- 12. Section Headings Split-Char Reveal ----------
   document.querySelectorAll('.section-title[data-split], .contact__title[data-split]').forEach((heading) => {
     const chars = splitChars(heading);
     gsap.fromTo(
